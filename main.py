@@ -99,7 +99,7 @@ resampled_df['sentimen'] = y_resampled
 ig_scores = mutual_info_classif(X_resampled, y_resampled, random_state=42)
 ig_scores_df = pd.DataFrame({'Feature': tfidf_vectorizer.get_feature_names_out(), 'Information_Gain': ig_scores})
 ig_scores_df_sorted = ig_scores_df.sort_values(by='Information_Gain', ascending=False)
-top_features_count_ig = int(len(ig_scores_df_sorted) * 0.70)
+top_features_count_ig = int(len(ig_scores_df_sorted) * 0.50)
 top_features_df_ig = ig_scores_df_sorted.head(top_features_count_ig)
 ig_selected_features = set(top_features_df_ig['Feature'])
 
