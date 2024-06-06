@@ -21,7 +21,7 @@ import nltk
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
-    nltk.download('punkt')
+    nltk.download('punkt', quiet=True)
 
 # Load data yang telah dibersihkan
 with open('df_cleaned (1).pickle', 'rb') as handle:
