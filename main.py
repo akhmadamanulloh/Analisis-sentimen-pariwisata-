@@ -4,11 +4,7 @@ import numpy as np
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.tokenize import word_tokenize
-import pickle
 import json
 import re
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
@@ -19,10 +15,6 @@ try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
     nltk.download('punkt', quiet=True)
-
-# Load data yang telah dibersihkan
-with open('df_cleaned (1).pickle', 'rb') as handle:
-    df_cleaned = pickle.load(handle)
 
 # Fungsi untuk membersihkan teks
 def clean_review(text):
@@ -73,13 +65,6 @@ def preprocess_text(text):
     text = stemming(text)
     return ' '.join(text)
 
-# Inisialisasi TF-IDF Vectorizer
-tfidf_vectorizer = TfidfVectorizer(tokenizer=word_tokenize)
-tfidf_matrix = tfidf_vectorizer.fit_transform(df_cleaned['text'])
-
-# Muat kolom sentimen
-y = df_cleaned['sentimen']
-
 # Muat DataFrame yang telah diseleksi fiturnya
 resampled_df_ig = pd.read_csv('resampled_df_ig.csv')
 resampled_df_chi = pd.read_csv('resampled_df_chi.csv')
@@ -108,7 +93,6 @@ feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Informat
 
 if st.button("Prediksi Sentimen"):
     preprocessed_text = preprocess_text(user_input)
-    vectorized_text = tfidf_vectorizer.transform([preprocessed_text])
     
     if feature_selection_method == "Information Gain":
         resampled_df = resampled_df_ig
@@ -118,12 +102,16 @@ if st.button("Prediksi Sentimen"):
         resampled_df = resampled_df_selected
     
     selected_features = resampled_df.columns.drop('sentimen')
-    selected_vectorized_text = vectorized_text[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features if word in tfidf_vectorizer.vocabulary_]]
     
     X_selected = resampled_df[selected_features]
     svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
     
-    prediction = svm_model.predict(selected_vectorized_text)
+    vectorized_text = pd.DataFrame([dict.fromkeys(selected_features, 0)])
+    for word in preprocessed_text.split():
+        if word in vectorized_text.columns:
+            vectorized_text[word] += 1
+    
+    prediction = svm_model.predict(vectorized_text)
     sentiment = "Positif" if prediction[0] == 1 else "Negatif"
     st.write(f"Prediksi Sentimen: {sentiment}")
 
@@ -137,7 +125,6 @@ if uploaded_file is not None:
         st.error("File CSV yang diunggah harus berisi kolom 'text'.")
     else:
         df_uploaded['cleaned_text'] = df_uploaded['text'].apply(preprocess_text)
-        vectorized_texts = tfidf_vectorizer.transform(df_uploaded['cleaned_text'])
         
         if feature_selection_method == "Information Gain":
             resampled_df = resampled_df_ig
@@ -147,12 +134,19 @@ if uploaded_file is not None:
             resampled_df = resampled_df_selected
         
         selected_features = resampled_df.columns.drop('sentimen')
-        selected_vectorized_texts = vectorized_texts[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features if word in tfidf_vectorizer.vocabulary_]]
         
         X_selected = resampled_df[selected_features]
         svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
         
-        predictions = svm_model.predict(selected_vectorized_texts)
+        vectorized_texts = pd.DataFrame(columns=selected_features)
+        for text in df_uploaded['cleaned_text']:
+            vectorized_text = dict.fromkeys(selected_features, 0)
+            for word in text.split():
+                if word in vectorized_text:
+                    vectorized_text[word] += 1
+            vectorized_texts = vectorized_texts.append(vectorized_text, ignore_index=True)
+        
+        predictions = svm_model.predict(vectorized_texts)
         df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
         
         st.write(df_uploaded)
