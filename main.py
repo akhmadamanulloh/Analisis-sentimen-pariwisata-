@@ -86,71 +86,29 @@ def train_and_evaluate_model(X, y):
 # Aplikasi Streamlit
 st.title("Analisis Sentimen dengan SVM")
 
-# Input teks untuk prediksi tunggal
-st.subheader("Prediksi Teks Tunggal")
-user_input = st.text_area("Masukkan teks untuk prediksi sentimen:")
-feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Combined"])
+# Pilih menu prediksi
+prediction_menu = st.radio("Pilih jenis prediksi:", ("Prediksi Teks Tunggal", "Prediksi Batch dari CSV"))
 
-if st.button("Prediksi Sentimen"):
-    preprocessed_text = preprocess_text(user_input)
-    
-    if feature_selection_method == "Information Gain":
-        resampled_df = resampled_df_ig
-    elif feature_selection_method == "Chi-Square":
-        resampled_df = resampled_df_chi
-    else:
-        resampled_df = resampled_df_selected
-    
-    selected_features = resampled_df.columns.drop('sentimen')
-    
-    X_selected = resampled_df[selected_features]
-    svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
-    
-    vectorized_text = pd.DataFrame([dict.fromkeys(selected_features, 0)])
-    for word in preprocessed_text.split():
-        if word in vectorized_text.columns:
-            vectorized_text[word] += 1
-    
-    prediction = svm_model.predict(vectorized_text)
-    sentiment = "Positif" if prediction[0] == 1 else "Negatif"
-    st.write(f"Prediksi Sentimen: {sentiment}")
+# Prediksi teks tunggal
+if prediction_menu == "Prediksi Teks Tunggal":
+    st.subheader("Prediksi Teks Tunggal")
+    user_input = st.text_area("Masukkan kalimat untuk prediksi sentimen:")
 
-# Unggah file untuk prediksi batch
-st.subheader("Prediksi Batch dari CSV")
-uploaded_file = st.file_uploader("Unggah file CSV", type="csv")
+    if st.button("Prediksi Sentimen") and user_input.strip() != "":
+        preprocessed_text = preprocess_text(user_input)
 
-if uploaded_file is not None:
-    df_uploaded = pd.read_csv(uploaded_file)
-    if 'text' not in df_uploaded.columns:
-        st.error("File CSV yang diunggah harus berisi kolom 'text'.")
-    else:
-        df_uploaded['cleaned_text'] = df_uploaded['text'].apply(preprocess_text)
-        
+        feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Combined"])
+
         if feature_selection_method == "Information Gain":
             resampled_df = resampled_df_ig
         elif feature_selection_method == "Chi-Square":
             resampled_df = resampled_df_chi
         else:
             resampled_df = resampled_df_selected
-        
+
         selected_features = resampled_df.columns.drop('sentimen')
-        
+
         X_selected = resampled_df[selected_features]
         svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
-        
-        vectorized_texts = pd.DataFrame(columns=selected_features)
-        for text in df_uploaded['cleaned_text']:
-            vectorized_text = dict.fromkeys(selected_features, 0)
-            for word in text.split():
-                if word in vectorized_text:
-                    vectorized_text[word] += 1
-            vectorized_texts = vectorized_texts.append(vectorized_text, ignore_index=True)
-        
-        predictions = svm_model.predict(vectorized_texts)
-        df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
-        
-        st.write(df_uploaded)
 
-        # Unduh hasil prediksi
-        csv = df_uploaded.to_csv(index=False)
-        st.download_button(label="Unduh Prediksi", data=csv, file_name='predictions.csv', mime='text/csv')
+       
