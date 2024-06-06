@@ -17,7 +17,7 @@ import re
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 # Load data yang telah dibersihkan
-with open('df_cleaned.pickle', 'rb') as handle:
+with open('df_cleaned (1).pickle', 'rb') as handle:
     df_cleaned = pickle.load(handle)
 
 # Fungsi untuk membersihkan teks
