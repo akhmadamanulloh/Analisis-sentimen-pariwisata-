@@ -17,8 +17,11 @@ import re
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import nltk
 
-# Unduh model tokenizer NLTK yang diperlukan
-nltk.download('punkt')
+# Pastikan model tokenizer NLTK yang diperlukan sudah terunduh
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
 
 # Load data yang telah dibersihkan
 with open('df_cleaned (1).pickle', 'rb') as handle:
