@@ -8,9 +8,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.tokenize import word_tokenize
-from imblearn.over_sampling import SMOTE
-from sklearn.feature_selection import mutual_info_classif, chi2
-import time
 import pickle
 import json
 import re
@@ -53,8 +50,7 @@ def normalize_text(text):
 stopwords_set = set()
 with open('stop_words.txt', 'r', encoding='utf-8') as file:
     for line in file:
-        word = line.strip()
-        stopwords_set.add(word)
+        stopwords_set.add(line.strip())
 
 # Fungsi untuk menghapus stop words
 def remove_stopwords(text):
@@ -81,38 +77,13 @@ def preprocess_text(text):
 tfidf_vectorizer = TfidfVectorizer(tokenizer=word_tokenize)
 tfidf_matrix = tfidf_vectorizer.fit_transform(df_cleaned['text'])
 
-# Buat DataFrame untuk TF-IDF
-tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=tfidf_vectorizer.get_feature_names_out())
-
 # Muat kolom sentimen
 y = df_cleaned['sentimen']
 
-# Inisialisasi SMOTE
-smote = SMOTE(random_state=42, k_neighbors=5)
-X_resampled, y_resampled = smote.fit_resample(tfidf_matrix, y)
-
-# Buat DataFrame resampled
-resampled_df = pd.DataFrame(X_resampled.toarray(), columns=tfidf_vectorizer.get_feature_names_out())
-resampled_df['sentimen'] = y_resampled
-
-# Seleksi fitur - Information Gain
-ig_scores = mutual_info_classif(X_resampled, y_resampled, random_state=42)
-ig_scores_df = pd.DataFrame({'Feature': tfidf_vectorizer.get_feature_names_out(), 'Information_Gain': ig_scores})
-ig_scores_df_sorted = ig_scores_df.sort_values(by='Information_Gain', ascending=False)
-top_features_count_ig = int(len(ig_scores_df_sorted) * 0.50)
-top_features_df_ig = ig_scores_df_sorted.head(top_features_count_ig)
-ig_selected_features = set(top_features_df_ig['Feature'])
-
-# Seleksi fitur - Chi-Square
-chi2_scores, _ = chi2(X_resampled, y_resampled)
-chi2_scores_df = pd.DataFrame({'Feature': tfidf_vectorizer.get_feature_names_out(), 'Chi_Square_Score': chi2_scores})
-chi2_scores_df_sorted = chi2_scores_df.sort_values(by='Chi_Square_Score', ascending=False)
-top_features_count_chi = int(len(chi2_scores_df_sorted) * 0.50)
-top_features_df_chi = chi2_scores_df_sorted.head(top_features_count_chi)
-chi_selected_features = set(top_features_df_chi['Feature'])
-
-# Fitur terpilih gabungan
-combined_selected_features = ig_selected_features.intersection(chi_selected_features)
+# Muat DataFrame yang telah diseleksi fiturnya
+resampled_df_ig = pd.read_csv('resampled_df_ig.csv')
+resampled_df_chi = pd.read_csv('resampled_df_chi.csv')
+resampled_df_selected = pd.read_csv('resampled_df_selected.csv')
 
 # Fungsi untuk melatih dan mengevaluasi model
 def train_and_evaluate_model(X, y):
@@ -147,16 +118,16 @@ if st.button("Prediksi Sentimen"):
     vectorized_text = tfidf_vectorizer.transform([preprocessed_text])
     
     if feature_selection_method == "Information Gain":
-        selected_features = ig_selected_features
+        resampled_df = resampled_df_ig
     elif feature_selection_method == "Chi-Square":
-        selected_features = chi_selected_features
+        resampled_df = resampled_df_chi
     else:
-        selected_features = combined_selected_features
+        resampled_df = resampled_df_selected
     
-    selected_features_list = list(selected_features)
-    selected_vectorized_text = vectorized_text[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features_list if word in tfidf_vectorizer.vocabulary_]]
+    selected_features = resampled_df.columns.drop('sentimen')
+    selected_vectorized_text = vectorized_text[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features if word in tfidf_vectorizer.vocabulary_]]
     
-    X_selected = resampled_df[selected_features_list]
+    X_selected = resampled_df[selected_features]
     svm_model, training_time, testing_time, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
     
     prediction = svm_model.predict(selected_vectorized_text)
@@ -176,16 +147,16 @@ if uploaded_file is not None:
         vectorized_texts = tfidf_vectorizer.transform(df_uploaded['cleaned_text'])
         
         if feature_selection_method == "Information Gain":
-            selected_features = ig_selected_features
+            resampled_df = resampled_df_ig
         elif feature_selection_method == "Chi-Square":
-            selected_features = chi_selected_features
+            resampled_df = resampled_df_chi
         else:
-            selected_features = combined_selected_features
+            resampled_df = resampled_df_selected
         
-        selected_features_list = list(selected_features)
-        selected_vectorized_texts = vectorized_texts[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features_list if word in tfidf_vectorizer.vocabulary_]]
+        selected_features = resampled_df.columns.drop('sentimen')
+        selected_vectorized_texts = vectorized_texts[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features if word in tfidf_vectorizer.vocabulary_]]
         
-        X_selected = resampled_df[selected_features_list]
+        X_selected = resampled_df[selected_features]
         svm_model, training_time, testing_time, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
         
         predictions = svm_model.predict(selected_vectorized_texts)
