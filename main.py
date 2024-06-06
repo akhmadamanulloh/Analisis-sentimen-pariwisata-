@@ -199,6 +199,6 @@ if uploaded_file is not None:
 
 # Visualisasikan Confusion Matrix
 st.subheader("Confusion Matrix")
-fig, ax = plt.subplots()  # Tambahkan baris ini untuk membuat figur
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', ax=ax)
-st.pyplot(fig)  # Tambahkan baris ini untuk menampilkan heatmap di Streamlit
+plt.figure(figsize=(8, 6))  # Tambahkan baris ini untuk membuat figur dengan ukuran tertentu
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
+st.pyplot()  # Tambahkan baris ini untuk menampilkan heatmap di Streamlit
