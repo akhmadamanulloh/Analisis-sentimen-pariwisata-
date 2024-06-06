@@ -85,7 +85,9 @@ def train_and_evaluate_model(X, y):
     return svm_model, accuracy, conf_matrix
 
 # Aplikasi Streamlit
-st.title("Analisis Sentimen dengan SVM")
+st.set_page_config(page_title="Analisis Sentimen", page_icon="📊", layout="wide")
+
+st.title("📊 Analisis Sentimen dengan SVM")
 
 # Buat sidebar menu dengan option_menu
 with st.sidebar:
@@ -95,6 +97,12 @@ with st.sidebar:
         icons=["typewriter", "file-earmark-spreadsheet"],
         menu_icon="cast",
         default_index=0,
+        styles={
+            "container": {"padding": "5px", "background-color": "#f0f2f6"},
+            "icon": {"color": "blue", "font-size": "25px"}, 
+            "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+            "nav-link-selected": {"background-color": "#2C6DD5"},
+        }
     )
 
 # Prediksi teks tunggal
@@ -121,4 +129,33 @@ if selected == "Prediksi Teks Tunggal":
 
         st.write(f"Model Accuracy: {accuracy}")
         st.write("Confusion Matrix:")
+        st.write(conf_matrix)
+
+# Prediksi batch dari CSV
+elif selected == "Prediksi Batch dari CSV":
+    st.subheader("Prediksi Batch dari CSV")
+    uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
+
+    if uploaded_file is not None:
+        batch_data = pd.read_csv(uploaded_file)
+        batch_data['cleaned_text'] = batch_data['text'].apply(preprocess_text)
+
+        feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur untuk Batch", ["Information Gain", "Chi-Square", "Combined"])
+
+        if feature_selection_method == "Information Gain":
+            resampled_df = resampled_df_ig
+        elif feature_selection_method == "Chi-Square":
+            resampled_df = resampled_df_chi
+        else:
+            resampled_df = resampled_df_selected
+
+        selected_features = resampled_df.columns.drop('sentimen')
+        X_selected = resampled_df[selected_features]
+        svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
+
+        # Lakukan prediksi batch
+        batch_data['predicted_sentiment'] = batch_data['cleaned_text'].apply(lambda x: svm_model.predict([x])[0])
+        st.write(batch_data)
+        st.write(f"Model Accuracy on training data: {accuracy}")
+        st.write("Confusion Matrix on training data:")
         st.write(conf_matrix)
