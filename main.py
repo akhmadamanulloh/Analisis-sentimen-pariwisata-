@@ -87,7 +87,7 @@ def train_and_evaluate_model(X, y):
 st.title("Analisis Sentimen dengan SVM")
 
 # Pilih menu prediksi
-prediction_menu = st.radio("Pilih jenis prediksi:", ("Prediksi Teks Tunggal", "Prediksi Batch dari CSV"))
+prediction_menu = st.sidebar.radio("Pilih jenis prediksi:", ("Prediksi Teks Tunggal", "Prediksi Batch dari CSV"))
 
 # Prediksi teks tunggal
 if prediction_menu == "Prediksi Teks Tunggal":
@@ -111,4 +111,40 @@ if prediction_menu == "Prediksi Teks Tunggal":
         X_selected = resampled_df[selected_features]
         svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
 
-       
+        vectorized_text = pd.DataFrame([dict.fromkeys(selected_features, 0)])
+        for word in preprocessed_text.split():
+            if word in vectorized_text.columns:
+                vectorized_text[word] += 1
+
+        prediction = svm_model.predict(vectorized_text)
+        sentiment = "Positif" if prediction[0] == 1 else "Negatif"
+        st.write(f"Prediksi Sentimen: {sentiment}")
+
+# Prediksi batch dari CSV
+else:
+    st.subheader("Prediksi Batch dari CSV")
+    uploaded_file = st.file_uploader("Unggah file CSV", type="csv")
+
+    if uploaded_file is not None:
+        df_uploaded = pd.read_csv(uploaded_file)
+        if 'text' not in df_uploaded.columns:
+            st.error("File CSV yang diunggah harus berisi kolom 'text'.")
+        else:
+            df_uploaded['cleaned_text'] = df_uploaded['text'].apply(preprocess_text)
+
+            feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Combined"])
+
+            if feature_selection_method == "Information Gain":
+                resampled_df = resampled_df_ig
+            elif feature_selection_method == "Chi-Square":
+                resampled_df = resampled_df_chi
+            else:
+                resampled_df = resampled_df_selected
+
+            selected_features = resampled_df.columns.drop('sentimen')
+
+            X_selected = resampled_df[selected_features]
+            svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
+
+            vectorized_texts = pd.DataFrame(columns=selected_features)
+            for text in df_uploaded['cleaned_text']:
