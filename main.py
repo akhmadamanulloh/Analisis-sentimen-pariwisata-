@@ -9,6 +9,7 @@ import json
 import re
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import nltk
+from streamlit_option_menu import option_menu
 
 # Pastikan model tokenizer NLTK yang diperlukan sudah terunduh
 try:
@@ -86,12 +87,18 @@ def train_and_evaluate_model(X, y):
 # Aplikasi Streamlit
 st.title("Analisis Sentimen dengan SVM")
 
-# Pilih menu prediksi
-st.sidebar.title("Menu Prediksi")
-prediction_menu = st.sidebar.radio("Pilih jenis prediksi:", ("Prediksi Teks Tunggal", "Prediksi Batch dari CSV"))
+# Buat sidebar menu dengan option_menu
+with st.sidebar:
+    selected = option_menu(
+        "Menu Prediksi",
+        ["Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
+        icons=["typewriter", "file-earmark-spreadsheet"],
+        menu_icon="cast",
+        default_index=0,
+    )
 
 # Prediksi teks tunggal
-if prediction_menu == "Prediksi Teks Tunggal":
+if selected == "Prediksi Teks Tunggal":
     st.subheader("Prediksi Teks Tunggal")
     user_input = st.text_area("Masukkan kalimat untuk prediksi sentimen:")
 
