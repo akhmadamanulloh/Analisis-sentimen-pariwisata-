@@ -90,7 +90,7 @@ st.set_page_config(page_title="Sentiment Analysis with SVM", layout="wide", page
 st.markdown(
     """
     <style>
-    .main {background-color: #f0f2f6;}
+    .main {background-color: #f8f9fc;}
     .sidebar .sidebar-content {background-color: #f8f9fc;}
     .css-18e3th9 {padding-top: 0rem; padding-bottom: 0rem;}
     .css-1d391kg {padding-top: 1rem;}
