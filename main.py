@@ -90,20 +90,13 @@ def train_and_evaluate_model(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     svm_model = SVC(C=10, gamma=1, kernel='rbf')
     
-    start_training_time = time.time()
     svm_model.fit(X_train, y_train)
-    end_training_time = time.time()
-    training_time = end_training_time - start_training_time
-
-    start_testing_time = time.time()
     y_pred = svm_model.predict(X_test)
-    end_testing_time = time.time()
-    testing_time = end_testing_time - start_testing_time
-
+    
     accuracy = accuracy_score(y_test, y_pred)
     conf_matrix = confusion_matrix(y_test, y_pred)
 
-    return svm_model, training_time, testing_time, accuracy, conf_matrix
+    return svm_model, accuracy, conf_matrix
 
 # Aplikasi Streamlit
 st.title("Analisis Sentimen dengan SVM")
@@ -128,7 +121,7 @@ if st.button("Prediksi Sentimen"):
     selected_vectorized_text = vectorized_text[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features if word in tfidf_vectorizer.vocabulary_]]
     
     X_selected = resampled_df[selected_features]
-    svm_model, training_time, testing_time, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
+    svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
     
     prediction = svm_model.predict(selected_vectorized_text)
     sentiment = "Positif" if prediction[0] == 1 else "Negatif"
@@ -157,7 +150,7 @@ if uploaded_file is not None:
         selected_vectorized_texts = vectorized_texts[:, [tfidf_vectorizer.vocabulary_[word] for word in selected_features if word in tfidf_vectorizer.vocabulary_]]
         
         X_selected = resampled_df[selected_features]
-        svm_model, training_time, testing_time, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
+        svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
         
         predictions = svm_model.predict(selected_vectorized_texts)
         df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
