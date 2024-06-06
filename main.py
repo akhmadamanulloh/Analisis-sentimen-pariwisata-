@@ -196,9 +196,3 @@ if uploaded_file is not None:
         # Unduh hasil prediksi
         csv = df_uploaded.to_csv(index=False)
         st.download_button(label="Unduh Prediksi", data=csv, file_name='predictions.csv', mime='text/csv')
-
-# Visualisasikan Confusion Matrix
-st.subheader("Confusion Matrix")
-plt.figure(figsize=(8, 6))  # Tambahkan baris ini untuk membuat figur dengan ukuran tertentu
-sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
-st.pyplot()  # Tambahkan baris ini untuk menampilkan heatmap di Streamlit
