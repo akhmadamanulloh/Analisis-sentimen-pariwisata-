@@ -114,10 +114,10 @@ if selected == "Home":
         <b>Analisis Sentimen</b> adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
         Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
         <br><br>
-        **Support Vector Machine (SVM)** adalah algoritma pembelajaran mesin yang digunakan untuk klasifikasi dan regresi. 
+        <b>Support Vector Machine (SVM)</b> adalah algoritma pembelajaran mesin yang digunakan untuk klasifikasi dan regresi. 
         SVM bekerja dengan mencari hyperplane yang dapat memisahkan kelas-kelas dalam data secara optimal. Dalam konteks analisis sentimen, SVM digunakan untuk mengklasifikasikan teks berdasarkan sentimen.
         <br><br>
-        **Seleksi Fitur** adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
+        <b>Seleksi Fitur</b> adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
         Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
         </div>
     """, unsafe_allow_html=True)
