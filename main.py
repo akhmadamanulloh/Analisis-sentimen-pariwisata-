@@ -60,8 +60,9 @@ def stemming(text):
 # Fungsi untuk preprocessing teks
 def preprocess_text(text):
     text = clean_review(text)
+    text = text.lower()  # Case folding
     text = normalize_text(text)
-    text = word_tokenize(text)
+    text = word_tokenize(text)  # Tokenizing
     text = remove_stopwords(text)
     text = stemming(text)
     return ' '.join(text)
