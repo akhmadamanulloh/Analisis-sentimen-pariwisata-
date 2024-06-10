@@ -91,8 +91,8 @@ st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Meng
 with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
-        options=["Home", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
-        icons=["house", "file-text", "file-upload"],
+        options=["Home", "Dataset", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
+        icons=["house", "table", "file-text", "file-upload"],
         menu_icon="cast",
         default_index=0,
     )
@@ -102,7 +102,7 @@ if selected == "Home":
     st.image("https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/02/09/3724430694.jpg", caption="Destinasi Pariwisata Jombang")
     st.subheader("Penjelasan Singkat")
     st.write("""
-        <div style="text-align:justify ;">
+        <div style="text-align:justify;">
         Pariwisata merupakan industri penting dalam pembangunan perekonomian suatu daerah. Salah satu daerah yang mengembangkan industri pariwisata adalah Kabupaten Jombang. Kabupaten Jombang yang 
         terletak di provinsi Jawa Timur. Kabupaten Jombang memiliki berbagai keindahan alam dan potensi pariwisata yang menarik, 
         karena posisi Kabupaten Jombang yang bersebelahan dengan daerah tujuan wisata alam Malang di tenggara serta wisata historis 
@@ -121,7 +121,20 @@ if selected == "Home":
         Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
         </div>
     """, unsafe_allow_html=True)
+
+# Dataset
+elif selected == "Dataset":
+    st.subheader("Dataset")
     
+    # Load datasets
+    df_raw = pd.read_csv('raw_dataset.csv')
+    df_preprocessed = pd.read_csv('preprocessed_dataset.csv')
+    
+    st.write("### Dataset Sebelum Preprocessing")
+    st.write(df_raw.head())
+    
+    st.write("### Dataset Setelah Preprocessing")
+    st.write(df_preprocessed.head())
 
 # Prediksi Teks Tunggal
 elif selected == "Prediksi Teks Tunggal":
@@ -181,20 +194,17 @@ elif selected == "Prediksi Batch dari CSV":
             X_selected = resampled_df[selected_features]
             svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
             
-            vectorized_texts = pd.DataFrame(columns=selected_features)
+            vectorized_texts = []
             for text in df_uploaded['cleaned_text']:
                 vectorized_text = dict.fromkeys(selected_features, 0)
                 for word in text.split():
                     if word in vectorized_text:
                         vectorized_text[word] += 1
-                vectorized_texts = vectorized_texts.append(vectorized_text, ignore_index=True)
+                vectorized_texts.append(vectorized_text)
             
-            if st.button("Prediksi Sentimen"):
-                predictions = svm_model.predict(vectorized_texts)
-                df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
-                
-                st.write(df_uploaded)
-
-                # Unduh hasil prediksi
-                csv = df_uploaded.to_csv(index=False)
-                st.download_button(label="Unduh Prediksi", data=csv, file_name='predictions.csv', mime='text/csv')
+            df_vectorized = pd.DataFrame(vectorized_texts)
+            predictions = svm_model.predict(df_vectorized)
+            df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
+            
+            st.write("### Hasil Prediksi")
+            st.write(df_uploaded[['text', 'predicted_sentiment']])
