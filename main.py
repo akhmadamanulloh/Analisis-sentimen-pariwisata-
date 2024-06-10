@@ -175,7 +175,7 @@ elif selected == "Prediksi Batch dari CSV":
     uploaded_file = st.file_uploader("Unggah file CSV", type="csv")
     feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
     
-    if uploaded_file is not None:
+    if st.button("Prediksi Sentimen") and uploaded_file is not None:
         df_uploaded = pd.read_csv(uploaded_file)
         if 'text' not in df_uploaded.columns:
             st.error("File CSV yang diunggah harus berisi kolom 'text'.")
@@ -194,17 +194,19 @@ elif selected == "Prediksi Batch dari CSV":
             X_selected = resampled_df[selected_features]
             svm_model, accuracy, conf_matrix = train_and_evaluate_model(X_selected, resampled_df['sentimen'])
             
-            vectorized_texts = []
+            vectorized_texts = pd.DataFrame(columns=selected_features)
             for text in df_uploaded['cleaned_text']:
                 vectorized_text = dict.fromkeys(selected_features, 0)
                 for word in text.split():
                     if word in vectorized_text:
                         vectorized_text[word] += 1
-                vectorized_texts.append(vectorized_text)
+                vectorized_texts = vectorized_texts.append(vectorized_text, ignore_index=True)
             
-            df_vectorized = pd.DataFrame(vectorized_texts)
-            predictions = svm_model.predict(df_vectorized)
+            predictions = svm_model.predict(vectorized_texts)
             df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
             
-            st.write("### Hasil Prediksi")
-            st.write(df_uploaded[['text', 'predicted_sentiment']])
+            st.write(df_uploaded)
+
+            # Unduh hasil prediksi
+            csv = df_uploaded.to_csv(index=False)
+            st.download_button(label="Unduh Prediksi", data=csv, file_name='predictions.csv', mime='text/csv')
