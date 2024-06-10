@@ -102,6 +102,7 @@ if selected == "Home":
     st.image("https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/02/09/3724430694.jpg", caption="Destinasi Pariwisata Jombang")
     st.subheader("Penjelasan Singkat")
     st.write("""
+        <div style="text-align: right;">
         Pariwisata merupakan industri penting dalam pembangunan perekonomian suatu daerah. Salah satu daerah yang mengembangkan industri pariwisata adalah Kabupaten Jombang. Kabupaten Jombang yang 
         terletak di provinsi Jawa Timur. Kabupaten Jombang memiliki berbagai keindahan alam dan potensi pariwisata yang menarik, 
         karena posisi Kabupaten Jombang yang bersebelahan dengan daerah tujuan wisata alam Malang di tenggara serta wisata historis 
@@ -109,15 +110,16 @@ if selected == "Home":
         terdiri dari wisata buatan, wisata alam, dan wisata religi. Banyaknya ulasan pengunjung terhadap pariwisata di Kabupaten Jombang di google maps, secara manual 
         menganalisis dan memahami banyak memakan banyak waktu. Oleh karena itu, diperlukan metode yang mampu mengolah data dengan cepat dan akurat 
         untuk menganalisis sentimen ulasan pariwisata di Kabupaten Jombang. Metode yang akan digunakan adalah Analisis Sentimen menggunakan Metode Support Vector Machine dengan kombinasi seleksi fitur information gain dan Chi-Square. 
-        
+        <br><br>
         **Analisis Sentimen** adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
         Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
-
+        <br><br>
         **Support Vector Machine (SVM)** adalah algoritma pembelajaran mesin yang digunakan untuk klasifikasi dan regresi. 
         SVM bekerja dengan mencari hyperplane yang dapat memisahkan kelas-kelas dalam data secara optimal. Dalam konteks analisis sentimen, SVM digunakan untuk mengklasifikasikan teks berdasarkan sentimen.
-
+        <br><br>
         **Seleksi Fitur** adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
         Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
+        </div>
     """)
     
 
