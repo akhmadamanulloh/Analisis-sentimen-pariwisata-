@@ -131,10 +131,10 @@ elif selected == "Dataset":
     df_preprocessed = pd.read_csv('preproessing.csv')
     
     st.write("### Dataset Sebelum Preprocessing")
-    st.write(df_raw.head())
+    st.write(df_raw)
     
     st.write("### Dataset Setelah Preprocessing")
-    st.write(df_preprocessed.head())
+    st.write(df_preprocessed)
 
 # Prediksi Teks Tunggal
 elif selected == "Prediksi Teks Tunggal":
