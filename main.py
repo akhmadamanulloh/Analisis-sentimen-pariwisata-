@@ -120,7 +120,7 @@ if selected == "Home":
         **Seleksi Fitur** adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
         Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
         </div>
-    """)
+    """, unsafe_allow_html=True)
     
 
 # Prediksi Teks Tunggal
