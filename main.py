@@ -101,7 +101,7 @@ with st.sidebar:
 if selected == "Prediksi Teks Tunggal":
     st.subheader("Prediksi Teks Tunggal")
     user_input = st.text_area("Masukkan teks untuk prediksi sentimen:")
-    feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Combined"])
+    feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
 
     if st.button("Prediksi Sentimen"):
         if not user_input.strip():
@@ -134,7 +134,7 @@ if selected == "Prediksi Teks Tunggal":
 elif selected == "Prediksi Batch dari CSV":
     st.subheader("Prediksi Batch dari CSV")
     uploaded_file = st.file_uploader("Unggah file CSV", type="csv")
-    feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Combined"])
+    feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
             
     if feature_selection_method == "Information Gain":
         resampled_df = resampled_df_ig
