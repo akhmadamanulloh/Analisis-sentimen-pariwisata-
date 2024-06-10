@@ -99,8 +99,15 @@ with st.sidebar:
 
 # Home
 if selected == "Home":
-    st.subheader("Teori Singkat")
+    st.image("https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/02/09/3724430694.jpg", caption="Destinasi Pariwisata Jombang")
+    st.subheader("Penjelasan Singkat")
     st.write("""
+        Pariwisata merupakan industri penting dalam pembangunan perekonomian suatu daerah. Salah satu daerah yang mengembangkan industri pariwisata adalah Kabupaten Jombang. Kabupaten Jombang yang 
+        terletak di provinsi Jawa Timur. Kabupaten Jombang memiliki berbagai keindahan alam dan potensi pariwisata yang menarik, 
+        karena posisi Kabupaten Jombang yang bersebelahan dengan daerah tujuan wisata alam Malang di tenggara serta wisata historis 
+        (situs Majapahit) Trowulan. Jombang memiliki beberapa tempat pariwisata dan budaya yang menarik, 
+        terdiri dari wisata buatan, wisata alam, dan wisata religi.
+        
         **Analisis Sentimen** adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
         Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
 
@@ -110,7 +117,7 @@ if selected == "Home":
         **Seleksi Fitur** adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
         Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
     """)
-    st.image("https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/02/09/3724430694.jpg", caption="Destinasi Pariwisata Jombang")
+    
 
 # Prediksi Teks Tunggal
 elif selected == "Prediksi Teks Tunggal":
