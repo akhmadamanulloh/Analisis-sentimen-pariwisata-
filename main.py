@@ -111,7 +111,7 @@ if selected == "Home":
         menganalisis dan memahami banyak memakan banyak waktu. Oleh karena itu, diperlukan metode yang mampu mengolah data dengan cepat dan akurat 
         untuk menganalisis sentimen ulasan pariwisata di Kabupaten Jombang. Metode yang akan digunakan adalah Analisis Sentimen menggunakan Metode Support Vector Machine dengan kombinasi seleksi fitur information gain dan Chi-Square. 
         <br><br>
-        <bold>Analisis Sentimen</bold> adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
+        <b>Analisis Sentimen</b> adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
         Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
         <br><br>
         **Support Vector Machine (SVM)** adalah algoritma pembelajaran mesin yang digunakan untuk klasifikasi dan regresi. 
