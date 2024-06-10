@@ -85,7 +85,7 @@ def train_and_evaluate_model(X, y):
     return svm_model, accuracy, conf_matrix
 
 # Aplikasi Streamlit
-st.title("ANALISIS SENTIMEN DESTINASI PARIWISATA MELALUI ULASAN GOOGLE MAPS MENGGUNAKAN SUPPORT VECTOR MACHINE DAN KOMBINASI SELEKSI FITUR")
+st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Menggunakan Support Vector Machine Dan Kombinasi Seleksi Fitur")
 
 with st.sidebar:
     selected = option_menu(
