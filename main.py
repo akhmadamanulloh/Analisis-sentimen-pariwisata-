@@ -106,7 +106,9 @@ if selected == "Home":
         terletak di provinsi Jawa Timur. Kabupaten Jombang memiliki berbagai keindahan alam dan potensi pariwisata yang menarik, 
         karena posisi Kabupaten Jombang yang bersebelahan dengan daerah tujuan wisata alam Malang di tenggara serta wisata historis 
         (situs Majapahit) Trowulan. Jombang memiliki beberapa tempat pariwisata dan budaya yang menarik, 
-        terdiri dari wisata buatan, wisata alam, dan wisata religi.
+        terdiri dari wisata buatan, wisata alam, dan wisata religi. Banyaknya ulasan pengunjung terhadap pariwisata di Kabupaten Jombang di google maps, secara manual 
+        menganalisis dan memahami banyak memakan banyak waktu. Oleh karena itu, diperlukan metode yang mampu mengolah data dengan cepat dan akurat 
+        untuk menganalisis sentimen ulasan pariwisata di Kabupaten Jombang. Metode yang akan digunakan adalah Analisis Sentimen menggunakan Metode Support Vector Machine dengan kombinasi seleksi fitur information gain dan Chi-Square. 
         
         **Analisis Sentimen** adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
         Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
