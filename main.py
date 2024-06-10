@@ -102,7 +102,7 @@ if selected == "Home":
     st.image("https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/02/09/3724430694.jpg", caption="Destinasi Pariwisata Jombang")
     st.subheader("Penjelasan Singkat")
     st.write("""
-        <div style="text-align: right;">
+        <div style="text-align:justify ;">
         Pariwisata merupakan industri penting dalam pembangunan perekonomian suatu daerah. Salah satu daerah yang mengembangkan industri pariwisata adalah Kabupaten Jombang. Kabupaten Jombang yang 
         terletak di provinsi Jawa Timur. Kabupaten Jombang memiliki berbagai keindahan alam dan potensi pariwisata yang menarik, 
         karena posisi Kabupaten Jombang yang bersebelahan dengan daerah tujuan wisata alam Malang di tenggara serta wisata historis 
