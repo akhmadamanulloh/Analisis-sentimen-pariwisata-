@@ -135,19 +135,20 @@ elif selected == "Prediksi Batch dari CSV":
     st.subheader("Prediksi Batch dari CSV")
     uploaded_file = st.file_uploader("Unggah file CSV", type="csv")
     feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
-            
-    if feature_selection_method == "Information Gain":
-        resampled_df = resampled_df_ig
-    elif feature_selection_method == "Chi-Square":
-        resampled_df = resampled_df_chi
-    else:
-        resampled_df = resampled_df_selected
-    if uploaded_file is not None:
+    
+    if st.button("Prediksi Sentimen") and uploaded_file is not None:
         df_uploaded = pd.read_csv(uploaded_file)
         if 'text' not in df_uploaded.columns:
             st.error("File CSV yang diunggah harus berisi kolom 'text'.")
         else:
             df_uploaded['cleaned_text'] = df_uploaded['text'].apply(preprocess_text)
+            
+            if feature_selection_method == "Information Gain":
+                resampled_df = resampled_df_ig
+            elif feature_selection_method == "Chi-Square":
+                resampled_df = resampled_df_chi
+            else:
+                resampled_df = resampled_df_selected
             
             selected_features = resampled_df.columns.drop('sentimen')
             
