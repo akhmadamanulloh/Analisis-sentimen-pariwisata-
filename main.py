@@ -91,14 +91,29 @@ st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Meng
 with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
-        options=["Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
-        icons=["file-text", "file-upload"],
+        options=["Home", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
+        icons=["house", "file-text", "file-upload"],
         menu_icon="cast",
         default_index=0,
     )
 
+# Home
+if selected == "Home":
+    st.subheader("Teori Singkat")
+    st.write("""
+        **Analisis Sentimen** adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
+        Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
+
+        **Support Vector Machine (SVM)** adalah algoritma pembelajaran mesin yang digunakan untuk klasifikasi dan regresi. 
+        SVM bekerja dengan mencari hyperplane yang dapat memisahkan kelas-kelas dalam data secara optimal. Dalam konteks analisis sentimen, SVM digunakan untuk mengklasifikasikan teks berdasarkan sentimen.
+
+        **Seleksi Fitur** adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
+        Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
+    """)
+    st.image("https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/02/09/3724430694.jpg", caption="Destinasi Pariwisata Jombang")
+
 # Prediksi Teks Tunggal
-if selected == "Prediksi Teks Tunggal":
+elif selected == "Prediksi Teks Tunggal":
     st.subheader("Prediksi Teks Tunggal")
     user_input = st.text_area("Masukkan teks untuk prediksi sentimen:")
     feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
@@ -136,7 +151,7 @@ elif selected == "Prediksi Batch dari CSV":
     uploaded_file = st.file_uploader("Unggah file CSV", type="csv")
     feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
     
-    if st.button("Prediksi Sentimen") and uploaded_file is not None:
+    if uploaded_file is not None:
         df_uploaded = pd.read_csv(uploaded_file)
         if 'text' not in df_uploaded.columns:
             st.error("File CSV yang diunggah harus berisi kolom 'text'.")
@@ -163,11 +178,12 @@ elif selected == "Prediksi Batch dari CSV":
                         vectorized_text[word] += 1
                 vectorized_texts = vectorized_texts.append(vectorized_text, ignore_index=True)
             
-            predictions = svm_model.predict(vectorized_texts)
-            df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
-            
-            st.write(df_uploaded)
+            if st.button("Prediksi Sentimen"):
+                predictions = svm_model.predict(vectorized_texts)
+                df_uploaded['predicted_sentiment'] = ["Positif" if pred == 1 else "Negatif" for pred in predictions]
+                
+                st.write(df_uploaded)
 
-            # Unduh hasil prediksi
-            csv = df_uploaded.to_csv(index=False)
-            st.download_button(label="Unduh Prediksi", data=csv, file_name='predictions.csv', mime='text/csv')
+                # Unduh hasil prediksi
+                csv = df_uploaded.to_csv(index=False)
+                st.download_button(label="Unduh Prediksi", data=csv, file_name='predictions.csv', mime='text/csv')
