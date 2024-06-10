@@ -92,7 +92,7 @@ with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
         options=["Home", "Dataset", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
-        icons=["house", "table", "file-text", "file-upload"],
+        icons=["house", "table", "file-text", "file-text"],
         menu_icon="cast",
         default_index=0,
     )
