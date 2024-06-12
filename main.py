@@ -91,8 +91,8 @@ st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Meng
 with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
-        options=["Home", "Dataset", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
-        icons=["house", "table", "file-text", "file-text"],
+        options=["Home", "Dataset", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV", "Grafik"],
+        icons=["house", "table", "file-text", "file-text", "bar-chart"],
         menu_icon="cast",
         default_index=0,
     )
@@ -111,12 +111,14 @@ if selected == "Home":
         menganalisis dan memahami banyak memakan banyak waktu. Oleh karena itu, diperlukan metode yang mampu mengolah data dengan cepat dan akurat 
         untuk menganalisis sentimen ulasan pariwisata di Kabupaten Jombang. Metode yang akan digunakan adalah Analisis Sentimen menggunakan Metode Support Vector Machine dengan kombinasi seleksi fitur information gain dan Chi-Square. 
         <br><br>
-        <b>Analisis Sentimen</b> merupakan salah satu cabang dari text mining yang bertugas mengklasifikasikan dokumen teks. Dalam prosesnya, Analisis Sentimen mampu mengekstraksi komentar, emosi, dan penilaian tertulis seseorang mengenai suatu topik tertentu dengan memanfaatkan teknik pemrosesan Bahasa alami, seperti menilai apakah teks tersebut bersifat positif atau negatif. 
+        <b>Analisis Sentimen</b> adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
+        Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
         <br><br>
-        <b>Support Vector Machine (SVM)</b> adalah sebuah metode klasifikasi yang digunakan dalam pembelajaran mesin (supervised learning) untuk memprediksi kategori berdasarkan model atau pola yang diperoleh dari proses pelatihan. 
+        <b>Support Vector Machine (SVM)</b> adalah algoritma pembelajaran mesin yang digunakan untuk klasifikasi dan regresi. 
+        SVM bekerja dengan mencari hyperplane yang dapat memisahkan kelas-kelas dalam data secara optimal. Dalam konteks analisis sentimen, SVM digunakan untuk mengklasifikasikan teks berdasarkan sentimen.
         <br><br>
         <b>Seleksi Fitur</b> adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
-        Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square.
+        Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
         </div>
     """, unsafe_allow_html=True)
 
@@ -125,15 +127,27 @@ elif selected == "Dataset":
     st.subheader("Dataset")
     
     # Load datasets
-    df_raw = pd.read_csv('dataset.csv')
-    df_preprocessed = pd.read_csv('preproessing.csv')
+    df_raw = pd.read_csv('raw_dataset.csv')
+    df_preprocessed = pd.read_csv('preprocessed_dataset.csv')
     
     st.write("### Dataset Sebelum Preprocessing")
-    st.write(df_raw)
+    st.write(df_raw.head())
     
     st.write("### Dataset Setelah Preprocessing")
-    st.write(df_preprocessed)
-
+    st.write(df_preprocessed.head())
+# Grafik
+elif selected == "Grafik":
+    st.subheader("Grafik Seleksi Fitur")
+    
+    st.write("### Grafik Information Gain")
+    st.image("information_gain.jpg")
+    
+    st.write("### Grafik Chi-Square")
+    st.image("chi_square.jpg")
+    
+    st.write("### Grafik Kombinasi Seleksi Fitur")
+    st.image("kombinasi_seleksi_fitur.jpg")
+    
 # Prediksi Teks Tunggal
 elif selected == "Prediksi Teks Tunggal":
     st.subheader("Prediksi Teks Tunggal")
