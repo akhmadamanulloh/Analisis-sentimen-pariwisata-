@@ -127,8 +127,8 @@ elif selected == "Dataset":
     st.subheader("Dataset")
     
     # Load datasets
-    df_raw = pd.read_csv('raw_dataset.csv')
-    df_preprocessed = pd.read_csv('preprocessed_dataset.csv')
+    df_raw = pd.read_csv('dataset.csv')
+    df_preprocessed = pd.read_csv('preproessing.csv')
     
     st.write("### Dataset Sebelum Preprocessing")
     st.write(df_raw.head())
