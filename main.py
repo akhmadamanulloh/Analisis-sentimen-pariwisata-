@@ -233,7 +233,7 @@ elif selected == "Grafik":
     
     st.write("### Grafik Chi-Square")
     st.image("chi_square.jpg")
-        st.write("""
+    st.write("""
         <div style="text-align:justify;">
         Pada skenario ini dilakukan pengujian untuk mencari akurasi dan waktu. pengujian dilakukan menggunakan SMOTE Selanjutnya dilakukan seleksi fitur Chi Square. Selanjutnya dilakukan pemodelan Support Vector menggunakan best hyperparameter. Pada pengujian ini menggunakan variasi jumlah fitur sebesar 95%, 90%, 85% 80%, 75%, 70%, 65%, 60%, 55%, 50%, 45%, 40 %, 35%, 30%, 25%, 20%, 15%, 10%, 5% dari keseluruhan fitur yang ada.
         <br>Pada gambar diatas akurasi dan waktu terbaik terdapat di variasi jumlah fitur sebesar 20% dengan akurasi 95,43% dan total waktu 21,15 detik.
