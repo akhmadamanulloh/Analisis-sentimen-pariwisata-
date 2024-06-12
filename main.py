@@ -91,8 +91,8 @@ st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Meng
 with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
-        options=["Home", "Dataset", "Grafik", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
-        icons=["house", "table", "bar-chart", "file-text", "file-text"],
+        options=["Home", "Dataset", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV", "Grafik"],
+        icons=["house", "table", "file-text", "file-text", "bar-chart"],
         menu_icon="cast",
         default_index=0,
     )
@@ -135,19 +135,7 @@ elif selected == "Dataset":
     
     st.write("### Dataset Setelah Preprocessing")
     st.write(df_preprocessed.head())
-# Grafik
-elif selected == "Grafik":
-    st.subheader("Grafik Seleksi Fitur")
-    
-    st.write("### Grafik Information Gain")
-    st.image("information_gain.jpg")
-    
-    st.write("### Grafik Chi-Square")
-    st.image("chi_square.jpg")
-    
-    st.write("### Grafik Kombinasi Seleksi Fitur")
-    st.image("kombinasi_seleksi_fitur.jpg")
-    
+
 # Prediksi Teks Tunggal
 elif selected == "Prediksi Teks Tunggal":
     st.subheader("Prediksi Teks Tunggal")
@@ -222,3 +210,16 @@ elif selected == "Prediksi Batch dari CSV":
             # Unduh hasil prediksi
             csv = df_uploaded.to_csv(index=False)
             st.download_button(label="Unduh Prediksi", data=csv, file_name='predictions.csv', mime='text/csv')
+
+# Grafik
+elif selected == "Grafik":
+    st.subheader("Grafik Seleksi Fitur")
+    
+    st.write("### Grafik Information Gain")
+    st.image("information_gain.png")
+    
+    st.write("### Grafik Chi-Square")
+    st.image("chi_square.png")
+    
+    st.write("### Grafik Kombinasi Seleksi Fitur")
+    st.image("kombinasi_seleksi_fitur.png")
