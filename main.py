@@ -127,8 +127,7 @@ elif selected == "Dataset":
         <div style="text-align:justify;">
         Dataset yang digunakan merupakan data ulasan dari 15 tempat pariwisata di Kabupaten Jombang yang ada pada google maps dengan menggunakan teknik scraping. Setelah pengumpulan data, langkah selanjutnya adalah melakukan penyaringan data. Selanjutnya tahap pelabelan dilakukan secara manual dengan berdasarkan sentimen yang terkandung dalam ulasan yaitu positif dan negatif. Data dilabeli oleh 2 orang volunteer dan akan divalidasi oleh seorang guru bahasa Indonesia.
         <br><br>
-        <b>Preprocessing</b> 
-        <br><br>
+        <b>Tahapan Preprocessing</b><br>
         1. Case Folding : Mengubah huruf besar ke huruf kecil (lowercase).<br>2. Cleansing : Menghilangkan karakter atau elemen yang tidak relevan atau seperti mencakup penghapusan tautan, tanda baca yang tidak diperlukan, dan lainnya. 
         <br>3. Normalisasi : Mengubah bahasa yang tidak baku menjadi bahasa yang baku sesuai Kamus Besar Bahasa Indoneisa (KBBI)<br>4. Tokenizing : Memisahan atau membagi teks berupa kalimat pada dokumen menjadi token atau term.
         <br>5. Stopword Removal : Menghapus kata-kata sesuai dengan kata-kata yang terdapat dalam stopword. <br>6. Stemming : mengubah kata menjadi bentuk kata dasar.
