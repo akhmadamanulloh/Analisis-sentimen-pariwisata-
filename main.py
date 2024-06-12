@@ -111,14 +111,12 @@ if selected == "Home":
         menganalisis dan memahami banyak memakan banyak waktu. Oleh karena itu, diperlukan metode yang mampu mengolah data dengan cepat dan akurat 
         untuk menganalisis sentimen ulasan pariwisata di Kabupaten Jombang. Metode yang akan digunakan adalah Analisis Sentimen menggunakan Metode Support Vector Machine dengan kombinasi seleksi fitur information gain dan Chi-Square. 
         <br><br>
-        <b>Analisis Sentimen</b> adalah proses menganalisis teks untuk menentukan sentimen atau opini yang dikandungnya, apakah positif, negatif, atau netral. 
-        Analisis ini sangat berguna dalam berbagai bidang seperti pemasaran, layanan pelanggan, dan penelitian sosial.
+        <b>Analisis Sentimen</b> merupakan salah satu cabang dari text mining yang bertugas mengklasifikasikan dokumen teks. Dalam prosesnya, Analisis Sentimen mampu mengekstraksi komentar, emosi, dan penilaian tertulis seseorang mengenai suatu topik tertentu dengan memanfaatkan teknik pemrosesan Bahasa alami, seperti menilai apakah teks tersebut bersifat positif atau negatif.
         <br><br>
-        <b>Support Vector Machine (SVM)</b> adalah algoritma pembelajaran mesin yang digunakan untuk klasifikasi dan regresi. 
-        SVM bekerja dengan mencari hyperplane yang dapat memisahkan kelas-kelas dalam data secara optimal. Dalam konteks analisis sentimen, SVM digunakan untuk mengklasifikasikan teks berdasarkan sentimen.
+        <b>Support Vector Machine (SVM)</b> adalah sebuah metode klasifikasi yang digunakan dalam pembelajaran mesin (supervised learning) untuk memprediksi kategori berdasarkan model atau pola yang diperoleh dari proses pelatihan. 
         <br><br>
         <b>Seleksi Fitur</b> adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
-        Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. Kombinasi seleksi fitur menggunakan lebih dari satu metode untuk meningkatkan kinerja model.
+        Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. 
         </div>
     """, unsafe_allow_html=True)
 
