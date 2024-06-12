@@ -220,7 +220,6 @@ elif selected == "Prediksi Batch dari CSV":
 
 # Grafik
 elif selected == "Grafik":
-    st.subheader("Grafik Seleksi Fitur")
     
     st.write("### Grafik Information Gain")
     st.image("information_gain.jpg")
