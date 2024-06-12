@@ -90,7 +90,7 @@ st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Meng
 
 with st.sidebar:
     selected = option_menu(
-        menu_title="Menu",
+        menu_title="Men",
         options=["Home", "Dataset", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV", "Grafik"],
         icons=["house", "table", "file-text", "file-text", "bar-chart"],
         menu_icon="cast",
