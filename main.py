@@ -91,8 +91,8 @@ st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Meng
 with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
-        options=["Home", "Dataset", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV", "Grafik"],
-        icons=["house", "table", "file-text", "file-text", "bar-chart"],
+        options=["Home", "Dataset", "Grafik", "Prediksi Teks Tunggal", "Prediksi Batch dari CSV"],
+        icons=["house", "table", "bar-chart", "file-text", "file-text"],
         menu_icon="cast",
         default_index=0,
     )
@@ -216,10 +216,10 @@ elif selected == "Grafik":
     st.subheader("Grafik Seleksi Fitur")
     
     st.write("### Grafik Information Gain")
-    st.image("information_gain.png")
+    st.image("information_gain.jpg")
     
     st.write("### Grafik Chi-Square")
-    st.image("chi_square.png")
+    st.image("chi_square.jpg")
     
     st.write("### Grafik Kombinasi Seleksi Fitur")
-    st.image("kombinasi_seleksi_fitur.png")
+    st.image("kombinasi_seleksi_fitur.jpg")
