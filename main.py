@@ -123,7 +123,18 @@ if selected == "Home":
 # Dataset
 elif selected == "Dataset":
     st.subheader("Dataset")
-    
+    st.write("""
+        <div style="text-align:justify;">
+        Dataset yang digunakan merupakan data ulasan dari 15 tempat pariwisata di Kabupaten Jombang yang ada pada google maps dengan menggunakan teknik scraping. Setelah pengumpulan data, langkah selanjutnya adalah melakukan penyaringan data. Selanjutnya tahap pelabelan dilakukan secara manual dengan berdasarkan sentimen yang terkandung dalam ulasan yaitu positif dan negatif. Data dilabeli oleh 2 orang volunteer dan akan divalidasi oleh seorang guru bahasa Indonesia.
+        <br><br>
+        <b>Preprocessing</b> 
+        <br><br>
+        <b>Support Vector Machine (SVM)</b> adalah sebuah metode klasifikasi yang digunakan dalam pembelajaran mesin (supervised learning) untuk memprediksi kategori berdasarkan model atau pola yang diperoleh dari proses pelatihan. 
+        <br><br>
+        <b>Seleksi Fitur</b> adalah proses memilih fitur yang paling relevan dari data untuk digunakan dalam model pembelajaran mesin. 
+        Metode seleksi fitur yang umum digunakan meliputi Information Gain dan Chi-Square. 
+        </div>
+    """, unsafe_allow_html=True)
     # Load datasets
     df_raw = pd.read_csv('dataset.csv')
     df_preprocessed = pd.read_csv('preproessing.csv')
