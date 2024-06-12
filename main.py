@@ -129,7 +129,7 @@ elif selected == "Dataset":
     df_preprocessed = pd.read_csv('preproessing.csv')
     
     st.write("### Dataset Sebelum Preprocessing")
-    st.write(df_raw.head)
+    st.write(df_raw)
     
     st.write("### Dataset Setelah Preprocessing")
     st.write(df_preprocessed)
