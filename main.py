@@ -229,6 +229,8 @@ elif selected == "Grafik":
         <br>Akurasi dan waktu terbaik terdapat di variasi jumlah fitur sebesar 50% dengan akurasi 95% dan total waktu 57,59 detik.
         </div>
     """, unsafe_allow_html=True)
+    st.image("word posotif ig.jpg")
+    st.image("word negatif ig.jpg")
     
     st.write("### Grafik Chi-Square")
     st.image("chi_square.jpg")
@@ -238,6 +240,8 @@ elif selected == "Grafik":
         <br>Pada gambar diatas akurasi dan waktu terbaik terdapat di variasi jumlah fitur sebesar 20% dengan akurasi 95,43% dan total waktu 21,15 detik.
         </div>
     """, unsafe_allow_html=True)
+    st.image("word posotif chi.jpg")
+    st.image("word negatif chi.jpg")
     
     st.write("### Grafik Kombinasi Seleksi Fitur")
     st.image("kombinasi_seleksi_fitur.jpg")
@@ -247,3 +251,5 @@ elif selected == "Grafik":
         <br>Pada gambar diatas akurasi dan waktu terbaik terdapat di variasi jumlah fitur sebesar 60% dengan akurasi 95,02% dan total waktu 47,66 detik.
         </div>
     """, unsafe_allow_html=True)
+    st.image("word posotif kombinasi.jpg")
+    st.image("word negatif kombinasi.jpg")
