@@ -230,7 +230,6 @@ elif selected == "Grafik":
         </div>
     """, unsafe_allow_html=True)
     st.image("word posotif ig.jpg")
-    st.image("word negatif ig.jpg")
     
     st.write("### Grafik Chi-Square")
     st.image("chi_square.jpg")
