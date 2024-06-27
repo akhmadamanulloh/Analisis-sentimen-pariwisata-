@@ -91,7 +91,7 @@ st.title("Analisis Sentimen Destinasi Pariwisata Melalui Ulasan Google Maps Meng
 with st.sidebar:
     selected = option_menu(
         menu_title="Menu",
-        options=["Home", "dataset", "Prediksi Ulasan", "Prediksi Ulasan CSV"],
+        options=["Home", "Dataset", "Prediksi Ulasan", "Prediksi Ulasan CSV"],
         icons=["house", "table", "file-text", "file-text"],
         menu_icon="cast",
         default_index=0,
@@ -121,7 +121,7 @@ if selected == "Home":
     """, unsafe_allow_html=True)
 
 # Dataset
-elif selected == "dataset":
+elif selected == "Dataset":
     st.subheader("Dataset")
     st.write("""
         <div style="text-align:justify;">
