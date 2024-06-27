@@ -143,8 +143,8 @@ elif selected == "Dataset":
     st.write(df_preprocessed)
 
 # Prediksi Teks Tunggal
-elif selected == "Prediksi Teks Tunggal":
-    st.subheader("Prediksi Teks Tunggal")
+elif selected == "Prediksi Ulasan":
+    st.subheader("Prediksi Ulasan")
     user_input = st.text_area("Masukkan teks untuk prediksi sentimen:")
     feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
 
@@ -176,8 +176,8 @@ elif selected == "Prediksi Teks Tunggal":
             st.write(f"Prediksi Sentimen: {sentiment}")
 
 # Prediksi Batch dari CSV
-elif selected == "Prediksi Batch dari CSV":
-    st.subheader("Prediksi Ulasan dari CSV")
+elif selected == "Prediksi Ulasan CSV":
+    st.subheader("Prediksi Ulasan CSV")
     uploaded_file = st.file_uploader("Unggah file CSV", type="csv")
     feature_selection_method = st.selectbox("Pilih Metode Seleksi Fitur", ["Information Gain", "Chi-Square", "Kombinasi Seleksi Fitur"])
     
