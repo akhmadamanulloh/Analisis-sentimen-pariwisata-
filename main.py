@@ -121,7 +121,7 @@ if selected == "Home":
     """, unsafe_allow_html=True)
 
 # Dataset
-elif selected == "Dataset":
+elif selected == "Prediksi Ulasan":
     st.subheader("Dataset")
     st.write("""
         <div style="text-align:justify;">
