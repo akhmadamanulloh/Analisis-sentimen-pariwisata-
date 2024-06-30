@@ -148,8 +148,8 @@ elif selected == "Dataset":
     st.write(df_sentiment_count)
 
     # Menghitung jumlah keseluruhan ulasan positif dan negatif
-    positif_total = (df_raw["sentiment"] == 1).sum()
-    negatif_total = (df_raw["sentiment"] == -1).sum()
+    positif_total = (df_raw["sentimen"] == 1).sum()
+    negatif_total = (df_raw["sentimen"] == -1).sum()
     
     # Menampilkan jumlah keseluruhan ulasan positif dan negatif
     st.write("### Jumlah Keseluruhan Ulasan Positif dan Negatif")
