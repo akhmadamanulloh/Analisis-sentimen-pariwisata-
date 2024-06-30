@@ -135,7 +135,18 @@ elif selected == "Dataset":
     # Load datasets
     df_raw = pd.read_csv('dataset.csv')
     df_preprocessed = pd.read_csv('preproessing.csv')
+
+    # Menghitung jumlah ulasan positif dan negatif berdasarkan nama tempat wisata
+    positif_count = df_raw[df_raw["sentiment"] == "positif"].groupby("title").size()
+    negatif_count = df_raw[df_raw["sentiment"] == "negatif"].groupby("title").size()
     
+    # Menggabungkan hasilnya menjadi satu DataFrame
+    df_sentiment_count = pd.DataFrame({"positif_count": positif_count, "negatif_count": negatif_count}).fillna(0)
+    
+    # Menampilkan jumlah ulasan positif dan negatif berdasarkan nama tempat wisata
+    st.write("### Jumlah Ulasan Positif dan Negatif Berdasarkan Nama Tempat Wisata")
+    st.write(df_sentiment_count)
+
     st.write("### Dataset Sebelum Preprocessing")
     st.write(df_raw)
     
