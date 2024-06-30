@@ -141,11 +141,20 @@ elif selected == "Dataset":
     negatif_count = df_raw[df_raw["sentimen"] == -1].groupby("title").size()
     
     # Menggabungkan hasilnya menjadi satu DataFrame
-    df_sentiment_count = pd.DataFrame({"positif_count": positif_count, "negatif_count": negatif_count}).fillna(0)
-    
+    df_sentiment_count = pd.DataFrame({"positif": positif_count, "negatif": negatif_count}).fillna(0)
+
     # Menampilkan jumlah ulasan positif dan negatif berdasarkan nama tempat wisata
     st.write("### Jumlah Ulasan Positif dan Negatif Berdasarkan Nama Tempat Wisata")
     st.write(df_sentiment_count)
+
+    # Menghitung jumlah keseluruhan ulasan positif dan negatif
+    positif_total = (df_raw["sentiment"] == 1).sum()
+    negatif_total = (df_raw["sentiment"] == -1).sum()
+    
+    # Menampilkan jumlah keseluruhan ulasan positif dan negatif
+    st.write("### Jumlah Keseluruhan Ulasan Positif dan Negatif")
+    st.write(f"Total Ulasan Positif: {positif_total}")
+    st.write(f"Total Ulasan Negatif: {negatif_total}")
 
     st.write("### Dataset Sebelum Preprocessing")
     st.write(df_raw)
