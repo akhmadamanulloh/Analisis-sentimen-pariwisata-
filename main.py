@@ -99,7 +99,7 @@ with st.sidebar:
 
 # Home
 if selected == "Home":
-    st.image("https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/02/09/3724430694.jpg", caption="Destinasi Pariwisata Jombang")
+    st.image("https://www.google.com/maps/place/Wana+Wisata+Sumber+Biru/@-7.733028,112.357439,3a,75y/data=!3m8!1e2!3m6!1sAF1QipPGZRnpHUIlw1Iqa5IU6IWVVRWEx9AIz2d1-D05!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipPGZRnpHUIlw1Iqa5IU6IWVVRWEx9AIz2d1-D05%3Dw203-h152-k-no!7i4624!8i3472!4m11!1m2!2m1!1swisata+di+dekat+jombang+jawa+timur!3m7!1s0x2e7865d45692e069:0x8660b3ad0c07573c!8m2!3d-7.733028!4d112.357439!10e5!15sCiJ3aXNhdGEgZGkgZGVrYXQgam9tYmFuZyBqYXdhIHRpbXVyWiQiIndpc2F0YSBkaSBkZWthdCBqb21iYW5nIGphd2EgdGltdXKSARJ0b3VyaXN0X2F0dHJhY3Rpb26aASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUkNOSFZ1U25ablJSQULgAQA!16s%2Fg%2F11gr0jlmk7?entry=ttu", caption="Destinasi Pariwisata Jombang")
     st.subheader("Penjelasan Singkat")
     st.write("""
         <div style="text-align:justify;">
